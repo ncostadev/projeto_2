@@ -3,4 +3,85 @@
 
 {% block content %}
 
+
+
+    <div class="container py-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1>Consultas</h1>
+                <p class="text-muted">
+                    Lista de consultas cadastradas
+                </p>
+            </div>
+
+            <a href="{% url 'cadastrar' %}" class="btn btn-primary">
+                Nova consulta
+            </a>
+        </div>
+
+
+        {% if consultas %}
+
+            <div class="row g-4">
+
+                {% for consulta in consultas %}
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="card shadow-sm h-100">
+
+                            <div class="card-body">
+
+                                <h5 class="card-title">
+                                    {{ consulta.paciente }}
+                                </h5>
+
+                                <p class="card-text mb-1">
+                                    <strong>Médico:</strong>
+                                    {{ consulta.medico }}
+                                </p>
+
+                                <p class="card-text mb-1">
+                                    <strong>Especialidade:</strong>
+                                    {{ consulta.especialidade }}
+                                </p>
+
+                                <p class="card-text mb-1">
+                                    <strong>Data:</strong>
+                                    {{ consulta.data }}
+                                </p>
+
+                                <p class="card-text mb-3">
+                                    <strong>Horário:</strong>
+                                    {{ consulta.horario }}
+                                </p>
+
+                                <a href="{% url 'editar' consulta.id %}"
+                                   class="btn btn-outline-primary">
+                                    Editar
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-info">
+                Nenhuma consulta cadastrada.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+
 {% endblock %}

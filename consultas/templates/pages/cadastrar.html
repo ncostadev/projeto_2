@@ -3,5 +3,57 @@
 
 {% block content %}
 
+    <div class="container py-5">
+        <div class="row justify-content-center" >
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm border-0 rounded-4 p-4">
+                    
+                    <form method="post">
+                        {% csrf_token %}
+        
+                        <div class="mb-3">
+                            <label class="form-label">Paciente</label>
+                            {{ form.paciente }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Médico</label>
+                            {{ form.medico }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Especialidade</label>
+                            {{ form.especialidade }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Data</label>
+                            <input type="date" name="data" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Horário</label>
+                            <input type="time" name="horario" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tipo</label>
+                            {{ form.tipo }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            {{ form.status }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            Cadastrar consulta
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
 {% endblock %}

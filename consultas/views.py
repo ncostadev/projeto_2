@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Consulta
 from django import forms
 # Create your views here.
@@ -10,7 +10,10 @@ class ConsultaForm(forms.ModelForm):
 
 
 def home_consultas(request):
-    return render(request, 'pages/consultar.html')
+    quantidade_consultas = Consulta.objects.count()
+    consultas = Consulta.objects.all()
+    
+    return render(request, 'pages/consultar.html', {'quantidade_consultas': quantidade_consultas, 'consultas': consultas})
 
 
 def cadastrar(request):
@@ -18,11 +21,24 @@ def cadastrar(request):
         form = ConsultaForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home_consultas')
+            return redirect('home_consulta')
     else:
         form = ConsultaForm()
+        
     return render(request, 'pages/cadastrar.html', {'form': form})
 
 
-def editar(request):
-    return render(request, 'pages/editar.html')
+def editar(request, id):
+    consulta = get_object_or_404(Consulta, id=id)
+
+    if request.method == 'POST':
+        form = ConsultaForm(request.POST, instance=consulta)
+        if form.is_valid():
+            form.save()
+            return redirect('home_consulta')
+    else:
+        form = ConsultaForm(instance=consulta)
+
+    return render(request, 'pages/editar.html', {'form': form})
+
+
