@@ -13,7 +13,7 @@ def home_consultas(request):
     quantidade_consultas = Consulta.objects.count()
     consultas = Consulta.objects.all()
     
-    return render(request, 'pages/consultar.html', {'quantidade_consultas': quantidade_consultas, 'consultas': consultas})
+    return render(request, 'pages/home_consultas.html', {'quantidade_consultas': quantidade_consultas, 'consultas': consultas})
 
 
 def cadastrar(request):
