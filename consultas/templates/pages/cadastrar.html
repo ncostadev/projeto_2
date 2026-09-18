@@ -13,37 +13,49 @@
         
                         <div class="mb-3">
                             <label class="form-label">Paciente</label>
-                            {{ form.paciente }}
+                            <input type="text" name="paciente" class="form-control" value="{{ form.paciente.value|default:'' }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Médico</label>
-                            {{ form.medico }}
+                            <input type="text" name="medico" class="form-control" value="{{ form.medico.value|default:'' }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Especialidade</label>
-                            {{ form.especialidade }}
+                            <input type="text" name="especialidade" class="form-control" value="{{ form.especialidade.value|default:'' }}" required>
                         </div>
+                        
 
                         <div class="mb-3">
                             <label class="form-label">Data</label>
-                            <input type="date" name="data" class="form-control">
+                            <input type="date" name="data" class="form-control" value="{{ form.data.value|default:'Y-m-d' }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Horário</label>
-                            <input type="time" name="horario" class="form-control">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Tipo</label>
-                            {{ form.tipo }}
+                            <input type="time" name="horario" class="form-control" value="{{ form.horario.value|default:'H:i' }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Status</label>
-                            {{ form.status }}
+
+                            <select name="status" class="form-select" required>
+                                <option value="Pendente"
+                                    {% if form.status.value == "Pendente" %}selected{% endif %}>
+                                    Pendente
+                                </option>
+
+                                <option value="Realizada"
+                                    {% if form.status.value == "Realizada" %}selected{% endif %}>
+                                    Realizada
+                                </option>
+
+                                <option value="Cancelada"
+                                    {% if form.status.value == "Cancelada" %}selected{% endif %}>
+                                    Cancelada
+                                </option>
+                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-primary">
@@ -57,3 +69,4 @@
     
 
 {% endblock %}
+

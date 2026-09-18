@@ -3,85 +3,107 @@
 
 {% block content %}
 
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card shadow">
+
+                <div class="card-header">
+                    <h3 class="mb-0">Editar Consulta</h3>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Paciente</label>
+                            <input type="text" name="paciente" class="form-control" value="{{ form.paciente.value|default:'' }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Médico</label>
+                            <input type="text" name="medico" class="form-control" value="{{ form.medico.value|default:'' }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Especialidade</label>
+                            <input type="text" name="especialidade" class="form-control" value="{{ form.especialidade.value|default:'' }}" required>
+                        </div>
+                        
+
+                        <div class="mb-3">
+                            <label class="form-label">Data</label>
+                            <input type="date" name="data" class="form-control" value="{{ form.data.value|default:'Y-m-d' }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Horário</label>
+                            <input type="time" name="horario" class="form-control" value="{{ form.horario.value|default:'H:i' }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+
+                            <select name="status" class="form-select" required>
+                                <option value="Pendente"
+                                    {% if form.status.value == "Pendente" %}selected{% endif %}>
+                                    Pendente
+                                </option>
+
+                                <option value="Realizada"
+                                    {% if form.status.value == "Realizada" %}selected{% endif %}>
+                                    Realizada
+                                </option>
+
+                                <option value="Cancelada"
+                                    {% if form.status.value == "Cancelada" %}selected{% endif %}>
+                                    Cancelada
+                                </option>
+                            </select>
+                        </div>
 
 
-    <div class="container py-5">
+                        <div class="d-flex gap-2">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h1>Consultas</h1>
-                <p class="text-muted">
-                    Lista de consultas cadastradas
-                </p>
-            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Salvar alterações
+                            </button>
 
-            <a href="{% url 'cadastrar' %}" class="btn btn-primary">
-                Nova consulta
-            </a>
-        </div>
-
-
-        {% if consultas %}
-
-            <div class="row g-4">
-
-                {% for consulta in consultas %}
-
-                    <div class="col-md-6 col-lg-4">
-
-                        <div class="card shadow-sm h-100">
-
-                            <div class="card-body">
-
-                                <h5 class="card-title">
-                                    {{ consulta.paciente }}
-                                </h5>
-
-                                <p class="card-text mb-1">
-                                    <strong>Médico:</strong>
-                                    {{ consulta.medico }}
-                                </p>
-
-                                <p class="card-text mb-1">
-                                    <strong>Especialidade:</strong>
-                                    {{ consulta.especialidade }}
-                                </p>
-
-                                <p class="card-text mb-1">
-                                    <strong>Data:</strong>
-                                    {{ consulta.data }}
-                                </p>
-
-                                <p class="card-text mb-3">
-                                    <strong>Horário:</strong>
-                                    {{ consulta.horario }}
-                                </p>
-
-                                <a href="{% url 'editar' consulta.id %}"
-                                   class="btn btn-outline-primary">
-                                    Editar
-                                </a>
-
-                            </div>
+                            <a href="{% url 'home_consulta' %}" class="btn btn-secondary">
+                                Cancelar
+                            </a>
 
                         </div>
 
-                    </div>
+                        <hr class="my-4">
 
-                {% endfor %}
+                        <form method="POST" action="{% url 'excluir' consulta.id %}">
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger"
+                                onclick="return confirm('Tem certeza que deseja excluir esta consulta?');">
+                                Excluir consulta
+                            </button>
+                        </form>
+
+                    </form>
+
+                </div>
 
             </div>
 
-        {% else %}
-
-            <div class="alert alert-info">
-                Nenhuma consulta cadastrada.
-            </div>
-
-        {% endif %}
+        </div>
 
     </div>
 
-
+</div>
 
 {% endblock %}

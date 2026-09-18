@@ -8,7 +8,6 @@ class Consulta(models.Model):
     especialidade = models.CharField(max_length=100)
     data = models.DateField()
     horario = models.TimeField()
-    tipo = models.CharField(max_length=50)
     status = models.CharField(max_length=20)
 
     def __str__(self):

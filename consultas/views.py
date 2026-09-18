@@ -33,12 +33,21 @@ def editar(request, id):
 
     if request.method == 'POST':
         form = ConsultaForm(request.POST, instance=consulta)
+
         if form.is_valid():
             form.save()
             return redirect('home_consulta')
     else:
         form = ConsultaForm(instance=consulta)
 
-    return render(request, 'pages/editar.html', {'form': form})
+    return render(request, 'pages/editar.html', {'form': form, 'consulta': consulta})
 
+def excluir(request, id):
+    consulta = get_object_or_404(Consulta, id=id)
+
+    if request.method == 'POST':
+        consulta.delete()
+        return redirect('home_consultas')
+
+    return render(request, 'pages/home_consultas.html', {'consulta': consulta})
 
